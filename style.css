@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: "Rajdhani", sans-serif;
+  font-weight: bold;
 }
 
 body {
@@ -16,23 +17,24 @@ header {
 
 header nav ul {
   width: 100%;
-  padding-top: 10px;
+  padding-top: 7px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-end;
   flex-direction: row;
   list-style: none;
 }
 
 header button {
   cursor: pointer;
-  background-color: rgb(202, 241, 237);
-  border: none;
-  border-radius: 15px;
+  background-color: rgb(231, 248, 246);
+  color: rgb(10, 50, 50);
+  border: 1px solid rgb(60, 90, 80);
+  border-radius: 20px;
   padding: 10px 30px;
-  transition: all 0.3s;
+  margin-right: 15px;
+  transition: all 200ms;
   font-size: 1.2rem;
-  font-weight: 500;
 }
 
 header button:hover {
@@ -47,12 +49,12 @@ header button:active {
 .containerBlocks {
   padding: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  grid-row-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-row-gap: 15px;
+  grid-column-gap: 15px;
 }
 
 .block {
-  width: 90%;
   border: solid 1px rgb(92, 143, 127);
   box-shadow: 4px 4px rgb(92, 143, 127);
   border-radius: 5px;
@@ -61,29 +63,143 @@ header button:active {
 
 .blockHeader {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 5px;
 }
 
-.blockList li {
+.blockDel {
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(231, 248, 246);
+  color: rgb(10, 50, 50);
+  border: 1px solid rgb(60, 90, 80);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms;
+}
+
+.blockDel:hover {
+  background-color: rgb(174, 190, 189);
+  transform: scale(1.1);
+}
+
+.blockList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.todoText {
-  width: 250px;
-  border: none;
-  border-radius: 5px;
-  background-color: rgba(186, 226, 213, 0.5);
+.blockList ul {
+  width: 100%;
 }
 
-.block ul {
-  list-style: none;
-  padding: 5px;
+.blockList li {
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
 }
 
 .block li {
   margin-bottom: 5px;
+}
+
+.todoText {
+  width: 80%;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(186, 226, 213, 0.5);
+  border: 1px solid rgb(60, 90, 80);
+  padding-left: 2px;
+  outline: none;
+}
+
+.todoCheck {
+  cursor: pointer;
+  appearance: none;
+  background-color: rgb(231, 248, 246);
+  width: 17px;
+  height: 17px;
+  border-radius: 5px;
+  margin-right: 5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(60, 90, 80);
+  transition: all 200ms;
+}
+
+.todoCheck::before {
+  content: "";
+  position: absolute;
+  width: 30%;
+  height: 60%;
+  border-right: 2px solid rgb(92, 100, 97);
+  border-bottom: 2px solid rgb(92, 100, 97);
+  transform: rotate(45deg);
+  margin-bottom: 4px;
+  opacity: 0;
+  transition: all 200ms;
+}
+
+.todoCheck:hover {
+  transform: scale(1.1);
+}
+
+.todoCheck:hover::before {
+  transform: scale(1.1) rotate(45deg);
+}
+
+.todoCheck:checked::before {
+  opacity: 1;
+}
+
+.todoDel {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 5px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(231, 248, 246);
+  color: rgb(10, 50, 50);
+  border: 1px solid rgb(60, 90, 80);
+  transition: all 200ms;
+}
+
+.todoDel:hover {
+  background-color: rgb(174, 190, 189);
+  transform: scale(1.1);
+}
+
+.newTodo {
+  width: 30%;
+  height: 30px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  background-color: rgb(231, 248, 246);
+  color: rgb(10, 50, 50);
+  border: 1px solid rgb(60, 90, 80);
+  font-size: 1rem;
+  transition: all 200ms;
+}
+
+.newTodo:hover {
+  background-color: rgb(174, 190, 189);
+}
+
+.newTodo:active {
+  background-color: rgb(129, 145, 144);
+  transform: scale(0.9);
 }
 
 footer {
@@ -93,7 +209,7 @@ footer {
   align-content: center;
   justify-content: center;
   bottom: 0;
-  position: absolute;
+  position: relative;
 }
 
 footer h2 {
