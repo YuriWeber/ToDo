@@ -68,6 +68,14 @@ header button:active {
   padding: 5px;
 }
 
+.blockHeader input {
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  width: 80%;
+  outline: none;
+}
+
 .blockDel {
   width: 25px;
   height: 25px;
@@ -113,7 +121,6 @@ header button:active {
   border: none;
   border-radius: 5px;
   background-color: rgba(186, 226, 213, 0.5);
-  border: 1px solid rgb(60, 90, 80);
   padding-left: 2px;
   outline: none;
 }
