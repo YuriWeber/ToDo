@@ -5,19 +5,24 @@
   font-weight: bold;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: rgb(186, 226, 213);
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-  width: 100%;
-  height: 60px;
+  padding: 8px;
   background-color: rgb(72, 221, 171);
 }
 
 header nav ul {
   width: 100%;
-  padding-top: 7px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -46,12 +51,17 @@ header button:active {
   transform: scale(0.9);
 }
 
+.content {
+  flex: 1 0 auto;
+}
+
 .containerBlocks {
   padding: 10px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-row-gap: 15px;
   grid-column-gap: 15px;
+  padding-bottom: 20px;
 }
 
 .block {
@@ -70,6 +80,7 @@ header button:active {
 
 .blockHeader input {
   border: none;
+  color: rgb(10, 50, 50);
   background-color: transparent;
   font-size: 1.5rem;
   width: 80%;
@@ -121,8 +132,10 @@ header button:active {
   border: none;
   border-radius: 5px;
   background-color: rgba(186, 226, 213, 0.5);
+  color: rgb(10, 50, 50);
   padding-left: 2px;
   outline: none;
+  transition: all 200ms;
 }
 
 .todoCheck {
@@ -210,13 +223,11 @@ header button:active {
 }
 
 footer {
+  flex-shrink: 0;
   background-color: rgb(72, 221, 171);
-  width: 100%;
   display: flex;
   align-content: center;
   justify-content: center;
-  bottom: 0;
-  position: relative;
 }
 
 footer h2 {

@@ -53,6 +53,9 @@ function newTodo(block) { // novo elemento ToDo
     
     check.type = "checkbox";
     check.classList = "todoCheck";
+    check.addEventListener('click', () => {
+        checkbox(check);
+    })
     todo.appendChild(check);
 
     text.type = "text";
@@ -69,6 +72,7 @@ function newTodo(block) { // novo elemento ToDo
     todo.classList = "todoItem";
 
     block.appendChild(todo);
+    checkAll(block);
 }
 
 function delTodo(todo) { // deleta um ToDo
@@ -91,6 +95,37 @@ function delBlock(block) { // deleta o bloco inteiro
     }
 }
 
+function checkbox(checkBox) { // verificação da checkbox e alteração do texto
+    const textElement = checkBox.parentElement.querySelector(".todoText");
+    if (checkBox.checked) {
+        textElement.style.color = "rgba(10, 50, 50, 0.5)"
+    }
+    else {
+        textElement.style.color = "rgb(10, 50, 50)"
+    }
+    checkAll(checkBox)
+}
+
+function checkAll(block) { // função para fazer a checagem de todos checkbox
+    block = getParent(block, "blockList").querySelectorAll("li")
+    let checked = true; // variavel para indicar se há checkbox não marcada
+    block.forEach(item => {
+        item = item.querySelector(".todoCheck");
+        if (!item.checked) {
+            checked = false;
+        }
+    })
+    return changeBlockColor(getParent(block[0], "block"), checked)
+}
+
+function changeBlockColor(block, checked) { // muda a transparencia do bloco
+    if (checked) { // caso todas checkbos estejam marcadas
+        block.style.opacity = "0.7";
+    }
+    else {
+        block.style.opacity = "1" 
+    }
+}
 
 // botões
 const newBtn = document.querySelector(".newBlock");
@@ -116,15 +151,3 @@ undoBtn.addEventListener('click', () => {
 accountBtn.addEventListener('click', () => {
     alert("Conta")
 })
-
-// funções utilitárias
-function getParent(element, searchClass) { // retorna o elemento pai que tiver uma class especifica
-    while (element && element.parentElement) {
-        element = element.parentElement;
-        if (element.getAttribute("class") === searchClass) {
-            return element
-        }
-    }
-
-    return null; // null caso não ache o elemento
-}
