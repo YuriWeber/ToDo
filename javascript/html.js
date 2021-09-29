@@ -1,20 +1,20 @@
 // funções de criação do html
-function newBlock() { // novo elemento bloco
+function newBlock(blockName="Novo Bloco") { // novo elemento bloco
     // variaveis referentes aos elementos
     const block = document.createElement("div"); // principal
     const header = document.createElement("div"); // secundario
-    const blockName = document.createElement("input");
+    const blockHeaderName = document.createElement("input");
     const blockDel = document.createElement("button");
     const icon = document.createElement("i");
     const listContainer = document.createElement("div"); // secundario
     const createTodo = document.createElement("button");
 
     //configuração de cada lemento e inserção dele
-    blockName.classList = "blockName";
-    blockName.type = "text";
-    blockName.value = "Novo Bloco";
-    blockName.maxLength = 25; // limite de caracteres (alterar)
-    header.appendChild(blockName);
+    blockHeaderName.classList = "blockName";
+    blockHeaderName.type = "text";
+    blockHeaderName.value = blockName;
+    blockHeaderName.maxLength = 25; // limite de caracteres (alterar)
+    header.appendChild(blockHeaderName);
 
     icon.classList = "fas fa-trash"; // icone o font awesome 
     blockDel.classList = "blockDel";
@@ -40,10 +40,11 @@ function newBlock() { // novo elemento bloco
     block.classList = "block";
     block.appendChild(listContainer);
     document.querySelector(".containerBlocks").appendChild(block); // insere o elemento completo no html
+    return block
 }
 
-function newTodo(block) { // novo elemento ToDo
-    block = getParent(block, "blockList").querySelector('ul');
+function newTodo(block, content="", checkTodo=false) { // novo elemento ToDo
+    block = getParent(block, "blockList").querySelector('ul');   
     
     // criação do elemento principal e dos children
     const todo = document.createElement("li");
@@ -53,6 +54,9 @@ function newTodo(block) { // novo elemento ToDo
     
     check.type = "checkbox";
     check.classList = "todoCheck";
+    if (checkTodo) {
+        check.checked = true;
+    }
     check.addEventListener('click', () => {
         checkbox(check);
     })
@@ -60,6 +64,7 @@ function newTodo(block) { // novo elemento ToDo
 
     text.type = "text";
     text.classList = "todoText";
+    text.value = content;
     todo.appendChild(text);
 
     button.classList = "todoDel";
@@ -72,7 +77,7 @@ function newTodo(block) { // novo elemento ToDo
     todo.classList = "todoItem";
 
     block.appendChild(todo);
-    checkAll(block);
+    checkbox(todo.firstChild);
 }
 
 function delTodo(todo) { // deleta um ToDo
@@ -127,13 +132,30 @@ function changeBlockColor(block, checked) { // muda a transparencia do bloco
     }
 }
 
+// temporario, alterar para funcionar com banco de dados
+function loadBlocks(blocks) { // carrega os blocos
+    for (let block of blocks) {
+        blockName = block.split("%&%")[0];
+        blockTodo = block.split("%&%")[1]
+        newBlockLoad = newBlock(blockName);
+        blockTodo.split("&&").forEach(todo => {
+            if (!todo == "") {
+                let check = false;
+                if (todo[0] === "*") {
+                    check = true;
+                    todo.replace("*", "")
+                }
+                newTodo(newBlockLoad, todo, check)
+            }
+        })
+    }
+}
+
 // botões
 const newBtn = document.querySelector(".newBlock");
 const saveBtn = document.querySelector(".save");
 const undoBtn = document.querySelector(".undo");
 const accountBtn = document.querySelector(".account");
-const newTodoBtn = document.querySelectorAll(".newTodo");
-const blockDelBtn = document.querySelectorAll(".blockDel")
 
 // botões eventlisteners
 newBtn.addEventListener('click', () => {
@@ -151,3 +173,23 @@ undoBtn.addEventListener('click', () => {
 accountBtn.addEventListener('click', () => {
     alert("Conta")
 })
+
+// temporario para testes, deve usar valores vindo de um banco de dados
+const blocksToLoad = ["AAAAA%&%*todo1&&*todo2&&*todo3&&*todo4&&", "BBBBB%&%DAWDWU&&*DOAWOUH&&DAWIODJOWID&&DAWNODWAJ&&", "FFFFF"];
+
+loadBlocks(blocksToLoad);
+
+// funções utilitárias
+function getParent(element, searchClass) { // retorna o elemento pai que tiver uma class especifica
+    if (element.className === "block") {
+        return element.lastChild
+    }
+    while (element && element.parentElement) {
+        element = element.parentElement;
+        if (element.getAttribute("class") === searchClass) {
+            return element
+        }
+    }
+
+    return null; // null caso não ache o elemento
+}

@@ -82,7 +82,7 @@ header button:active {
   border: none;
   color: rgb(10, 50, 50);
   background-color: transparent;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 80%;
   outline: none;
 }
@@ -136,6 +136,7 @@ header button:active {
   padding-left: 2px;
   outline: none;
   transition: all 200ms;
+  overflow-wrap: break-word;
 }
 
 .todoCheck {
@@ -231,5 +232,21 @@ footer {
 }
 
 footer h2 {
+  color: rgb(10, 50, 50);
   font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  header button {
+    padding: 5px 15px;
+    font-size: 1rem;
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 350px) {
+  header button {
+    padding: 3px 10px;
+    font-size: 0.8rem;
+  }
 }
