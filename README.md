@@ -13,4 +13,4 @@ Carregamento dos blocos atualmente a partir de uma lista, deve ser alterado para
 ### Carregamento
 **%&%** define a separação entre o cabeçalho e o corpo do bloco.\
 **&&** separação entre cada um dos To Do.\
-***** define que o To Do esta marcado.
+**\*** define que o To Do esta marcado.
